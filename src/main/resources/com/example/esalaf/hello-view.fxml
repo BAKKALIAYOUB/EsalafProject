@@ -4,14 +4,12 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 
-<VBox alignment="CENTER" prefHeight="143.0" prefWidth="346.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.HelloController">
+<VBox alignment="CENTER" prefHeight="350.0" prefWidth="483.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.HelloController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
    <AmbientLight color="CHARTREUSE" lightOn="true" />
-   <Box depth="100" height="100" width="100" />
    <ParallelCamera />
 
     <Label fx:id="welcomeText" />
