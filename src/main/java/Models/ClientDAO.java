@@ -65,11 +65,14 @@ public class ClientDAO extends BaseDAO<Client> {
     @Override
     public void delete(int id) throws SQLException {
         String req = "DELETE FROM Client WHERE id_client = ?";
+        ClientDAO c = new ClientDAO();
+
+        if (c.getOne(id) == null){
+            throw new SQLException("Client With id : "+ id+" is not found");
+        }
 
         this.preparedStatement = this.connection.prepareStatement(req);
-
         this.preparedStatement.setInt(1,id);
-
         this.preparedStatement.execute();
     }
 
@@ -114,8 +117,6 @@ public class ClientDAO extends BaseDAO<Client> {
                     )
             );
         }
-
-
         return SQLCleint;
     }
 }

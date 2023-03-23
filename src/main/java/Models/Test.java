@@ -9,8 +9,7 @@ public class Test {
         Client c1 = new Client(9 , "Rime" , "0539330510");
         ClientDAO ClientModels = new ClientDAO();
 
-        ClientModels.update(c0);
-        ClientModels.update(c1);
+        ClientModels.delete(8);
 
 
     }
