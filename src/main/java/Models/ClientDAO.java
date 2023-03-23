@@ -46,7 +46,20 @@ public class ClientDAO extends BaseDAO<Client> {
 
     @Override
     public void update(Client object) throws SQLException {
+        String req = "UPDATE Client SET nom = ? , telephone = ? WHERE id_client = ?";
+        ClientDAO c = new ClientDAO();
+        if (c.getOne(object.getId_client()) == null){
+            //create a static method to check the existence of a client to use in other CRUD methods
+            throw new SQLException("Client With id : "+ object.getId_client()+" is not found");
+        }
+        else {
+            this.preparedStatement = this.connection.prepareStatement(req);
+            this.preparedStatement.setString(1 , object.getNom());
+            this.preparedStatement.setString(2 , object.getTelephone());
+            this.preparedStatement.setInt(3 , object.getId_client());
 
+            this.preparedStatement.execute();
+        }
     }
 
     @Override

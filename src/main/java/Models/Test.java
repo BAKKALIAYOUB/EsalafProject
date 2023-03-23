@@ -1,16 +1,17 @@
 package Models;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Test {
     public static void main(String[] args) throws SQLException {
-        Client c = new Client(1 , "Ayoub" , "0634490082");
+        Client c0 = new Client(1 , "Salma" , "0634490082");
+        Client c1 = new Client(9 , "Rime" , "0539330510");
         ClientDAO ClientModels = new ClientDAO();
 
-        //ClientModels.save(c);
+        ClientModels.update(c0);
+        ClientModels.update(c1);
 
-        Client c1 = ClientModels.read(3);
 
-        System.out.println(c1.toString());
     }
 }
