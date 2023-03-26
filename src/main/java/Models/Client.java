@@ -5,14 +5,42 @@ public class Client {
     private String nom;
     private String telephone;
 
-    public Client(int id_client, String nom, String telephone) {
+    private String Email;
+    private String password;
+
+    public Client(int id_client, String nom, String telephone, String email, String password) {
         this.id_client = id_client;
         this.nom = nom;
         this.telephone = telephone;
+        Email = email;
+        this.password = password;
+    }
+
+    public Client(String nom, String telephone, String email, String password) {
+        this.nom = nom;
+        this.telephone = telephone;
+        Email = email;
+        this.password = password;
     }
 
     public Client() {
 
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId_client() {
