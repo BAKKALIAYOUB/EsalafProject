@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.LoginController">
+    <children>
+        <AnchorPane prefHeight="400.0" prefWidth="266.0" style="-fx-background-color: #00929b;">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="13.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" style="-fx-scale-x: 1.2; -fx-scale-y: 1.2;">
+               <image>
+                  <Image url="@Esalaf%20Logo.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+        <AnchorPane prefHeight="397.0" prefWidth="414.0" style="-fx-background-color: #e9e9e9;">
+            <children>
+                <Label layoutX="50.0" layoutY="133.0" text="Email" />
+                <TextField fx:id="input_Email" layoutX="50.0" layoutY="151.0" promptText="Email">
+                    <cursor>
+                        <Cursor fx:constant="TEXT" />
+                    </cursor></TextField>
+                <Label layoutX="49.0" layoutY="200.0" text="Password" />
+                <Button fx:id="save_button" layoutX="26.0" layoutY="278.0" mnemonicParsing="false" onAction="#onSaveButtonClick" prefHeight="23.0" prefWidth="323.0" style="-fx-background-color: #00929b;" text="Login">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+                </Button>
+            <Label layoutX="49.0" layoutY="41.0" prefHeight="63.0" prefWidth="215.0" text="Login">
+               <font>
+                  <Font name="Arial Bold" size="45.0" />
+               </font>
+            </Label>
+            <Label fx:id="LoginMessageLabel" layoutX="86.0" layoutY="115.0" prefHeight="17.0" prefWidth="201.0" textFill="#eb0000" />
+            <Label layoutX="35.0" layoutY="326.0" text="Vous n'avez pas du compte ?" />
+            <Button fx:id="CreateCompteButton" layoutX="199.0" layoutY="322.0" mnemonicParsing="false" onAction="#onCreateCompteClick" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: #e9e9e9;" text="Créez Compte" textFill="BLUE" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <PasswordField fx:id="input_Password" layoutX="50.0" layoutY="217.0" />
+            </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+        </AnchorPane>
+    </children>
+</HBox>
