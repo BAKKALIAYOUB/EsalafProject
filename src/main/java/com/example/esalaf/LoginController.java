@@ -2,6 +2,8 @@ package com.example.esalaf;
 
 import Models.Client;
 import Models.ClientDAO;
+import Models.MarketAdmin;
+import Models.MarketAdminDAO;
 import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -28,22 +30,30 @@ public class LoginController {
     private Label LoginMessageLabel;
 
     @FXML
-    protected void onSaveButtonClick() throws SQLException{
+    protected void onLoginButtonClick(ActionEvent event) throws SQLException , IOException{
         //verification de l'existence du client qui a le meme email et password entrer
-        String Email = input_Email.getText();
-        String Password = input_Password.getText();
-        ClientDAO ClientModels = new ClientDAO();
+        String password = input_Password.getText();
+        String email = input_Email.getText();
+        MarketAdminDAO MarketAdminModel = new MarketAdminDAO();
 
-        if (Email.isEmpty() || Password.isEmpty()){
+        MarketAdmin admin = MarketAdminModel.getAdminByEmailAndPassword(email , password);
+        if(password.isBlank() || email.isBlank()){
             LoginMessageLabel.setText("Veuillez remplir tout les champs !!");
         }
+        else if(admin == null){
+            LoginMessageLabel.setText("Aucun compte correspond a l'email");
+        }
+        else if(!admin.getEmail().equals(email) && !admin.getPassword().equals(password)){
+            LoginMessageLabel.setText("L'email ou password sont incorrect");
+        }
         else {
-            Client ClientCheck = ClientModels.getClientByEmailAndPassword(Email , Password);
-            if (ClientCheck == null){
-                LoginMessageLabel.setText("L'email ou password sont incorrect !!");
-            } else if (ClientCheck.getEmail() == Email && ClientCheck.getPassword() == Password){
-                // view dashboard
-            }
+            Parent root = FXMLLoader.load(getClass().getResource("TableauBoard-view.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root );
+            stage.setScene(scene);
+            stage.setWidth(1080);
+            stage.setHeight(400);
+            stage.show();
         }
     }
 
@@ -55,8 +65,5 @@ public class LoginController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
-
     }
 }
