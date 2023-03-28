@@ -1,6 +1,8 @@
 package Models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,5 +116,23 @@ public class ProduitDAO extends BaseDAO<Produit>{
             );
         }
         return SQLCleint;
+    }
+
+    public int getNombreProduits() {
+        String req = "SELECT COUNT(*) AS NombreProduits FROM produit";
+
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(req);
+            int nombreProduits = 0;
+            if(result.next()){
+                nombreProduits = result.getInt("NombreProduits");
+            }
+            return nombreProduits;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
