@@ -53,6 +53,7 @@ public class LoginController {
             stage.setScene(scene);
             stage.setWidth(1080);
             stage.setHeight(400);
+
             stage.show();
         }
     }

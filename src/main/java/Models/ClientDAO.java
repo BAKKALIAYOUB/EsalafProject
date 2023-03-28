@@ -1,12 +1,14 @@
 package Models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ClientDAO extends BaseDAO<Client> {
-    public ClientDAO() throws SQLException {
+    public ClientDAO() {
         super();
     }
 
@@ -117,12 +119,27 @@ public class ClientDAO extends BaseDAO<Client> {
                             this.resultSet.getInt(1),
                             this.resultSet.getString(2),
                             this.resultSet.getString(3)
-
                     )
             );
         }
         return SQLCleint;
     }
 
+    public int getNombreCliet() {
+        String req = "SELECT COUNT(*) AS NombreCleint FROM client";
 
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(req);
+            int nombreCleint = 0;
+            if(result.next()){
+                nombreCleint = result.getInt("NombreCleint");
+            }
+            return nombreCleint;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
