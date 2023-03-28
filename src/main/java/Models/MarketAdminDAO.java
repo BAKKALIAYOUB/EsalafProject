@@ -29,7 +29,7 @@ public class MarketAdminDAO extends BaseDAO<MarketAdmin> {
 
         this.preparedStatement = this.connection.prepareStatement(req);
 
-        this.preparedStatement.setLong(1,id);
+        this.preparedStatement.setInt(1,id);
         this.resultSet = this.preparedStatement.executeQuery();
 
         MarketAdmin result = null;
