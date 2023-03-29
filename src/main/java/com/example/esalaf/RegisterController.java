@@ -31,6 +31,7 @@ public class RegisterController{
     @FXML
     private Label ErreurLabel;
 
+
     @FXML
     protected void seConnecterClick(ActionEvent event) throws IOException {
         //switch scene to login view
@@ -42,7 +43,7 @@ public class RegisterController{
     }
 
     @FXML
-    protected void onRegisterClick() throws SQLException {
+    protected void onRegisterClick(ActionEvent event) throws SQLException , IOException{
         String nom = input_Nom.getText();
         String email = input_Email.getText();
         String password = input_Password.getText();
@@ -59,7 +60,22 @@ public class RegisterController{
         }
         else{
             try{
+                //save the new admin in the database and create a admin object to send it to TableauBoard controller
                 AdminModel.save(new MarketAdmin(nom, email , password));
+                MarketAdmin adminLogIn= AdminModel.getAdminByEmailAndPassword(email , password);
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("TableauBoard-view.fxml"));
+                Parent root = loader.load();
+
+                //Send Admin log in object to Dashboard Controller
+                TableauBoardController tableauBoardController = loader.getController();
+                tableauBoardController.setAdminLogin(adminLogIn);
+                tableauBoardController.setWelcomeMessage();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root , 600 , 400);
+                stage.setScene(scene);
+                stage.show();
             } catch (SQLException e){
                 //exeption de l'unicité du champ email
                 ErreurLabel.setText("Email existe dèja");
