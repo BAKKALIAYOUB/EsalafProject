@@ -2,6 +2,7 @@ package com.example.esalaf;
 
 import Models.ClientDAO;
 import Models.CreditDAO;
+import Models.MarketAdmin;
 import Models.ProduitDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,17 @@ public class TableauBoardController implements Initializable{
     private Label TotalClient;
     @FXML
     private Label TotalCredit;
+    @FXML
+    private Label WelcomeLabel;
+
+    private MarketAdmin adminLogin = new MarketAdmin();
+
+    public void setAdminLogin(MarketAdmin object){
+        this.adminLogin = object;
+    }
+    public MarketAdmin getAdminLogin(){
+        return this.adminLogin;
+    }
 
     public void initialize(URL url, ResourceBundle resourceBundle){
         ProduitDAO produitModel = new ProduitDAO();
@@ -43,6 +55,9 @@ public class TableauBoardController implements Initializable{
         TotalClient.setText(Integer.toString(NombreCleint));
         TotalCredit.setText(Float.toString(TotalCredit1) + " DH");
 
+
+
+
     }
 
     @FXML
@@ -57,15 +72,27 @@ public class TableauBoardController implements Initializable{
     }
 
     @FXML
-    protected void onClientsClick(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Client-view.fxml"));
+    protected void onClientsClick(ActionEvent event) throws IOException , SQLException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Client-view.fxml"));
+        Parent root = loader.load();
+
+        //send marketAdmin to ClientController;
+        ClientController clientController = loader.getController();
+        clientController.setAdmin(this.getAdminLogin());
+        clientController.updateTable();
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root , 600 , 400);
         stage.setScene(scene);
 
+
         stage.show();
     }
 
+    public void setWelcomeMessage(){
+        System.out.println(this.getAdminLogin().toString());
+        WelcomeLabel.setText("Welcome " + this.adminLogin.getNom());
+    }
 
 
 
