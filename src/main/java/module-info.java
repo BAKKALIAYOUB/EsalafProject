@@ -7,5 +7,7 @@ module com.example.esalaf {
     requires java.sql;
 
     opens com.example.esalaf to javafx.fxml;
+
+    opens Models to javafx.base;
     exports com.example.esalaf;
 }
