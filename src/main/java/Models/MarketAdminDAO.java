@@ -134,6 +134,8 @@ public class MarketAdminDAO extends BaseDAO<MarketAdmin> {
         MarketAdmin result = null;
         if(resultSet.next()){
             result = new MarketAdmin(
+                    resultSet.getInt("id_admin"),
+                    resultSet.getString("nom"),
                     resultSet.getString("email"),
                     resultSet.getString("password")
             );
