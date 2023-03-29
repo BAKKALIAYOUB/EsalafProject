@@ -47,14 +47,23 @@ public class LoginController {
             LoginMessageLabel.setText("L'email ou password sont incorrect");
         }
         else {
-            Parent root = FXMLLoader.load(getClass().getResource("TableauBoard-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("TableauBoard-view.fxml"));
+            Parent root = loader.load();
+
+            //send Admin object that log in to TableauBordController
+            TableauBoardController tableauBoardController = loader.getController();
+            tableauBoardController.setAdminLogin(admin);
+            tableauBoardController.setWelcomeMessage();
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root );
             stage.setScene(scene);
             stage.setWidth(1080);
             stage.setHeight(400);
 
+
             stage.show();
+
         }
     }
 
