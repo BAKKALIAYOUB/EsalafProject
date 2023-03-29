@@ -140,6 +140,44 @@ public class ClientDAO extends BaseDAO<Client> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    public void saveAsAdmin(Client object , int idAmdin) throws SQLException{
+        String req = "INSERT INTO client (nom , telephone , id_admin) values (? , ? , ?)";
+
+        this.preparedStatement = this.connection.prepareStatement(req);
+
+        this.preparedStatement.setString(1 , object.getNom());
+        this.preparedStatement.setString(2 , object.getTelephone());
+        this.preparedStatement.setInt(3 , idAmdin);
+
+        this.preparedStatement.execute();
+    }
+
+    public List<Client> getAllasAdmin(int idAmdin) throws SQLException{
+        List<Client> SQLCleint = new ArrayList<Client>();
+        String req = "SELECT * , " +
+                "(SELECT COUNT(*)  FROM crédit WHERE id_client = client.id_client) as TotalProduits , " +
+                "(SELECT SUM(p.prix * c.quantité) FROM produit p " +
+                "JOIN crédit c ON p.id_produit = c.id_produit AND p.id_produit = client.id_client) as TotalCrédit " +
+                "FROM Client WHERE Client.id_admin = ?";
+
+        this.preparedStatement = this.connection.prepareStatement(req);
+        this.preparedStatement.setInt(1 , idAmdin);
+
+         this.resultSet = this.preparedStatement.executeQuery();
+
+        while (this.resultSet.next()){
+            SQLCleint.add(
+                    new Client(
+                            this.resultSet.getInt("id_client"),
+                            this.resultSet.getString("nom"),
+                            this.resultSet.getString("telephone"),
+                            this.resultSet.getFloat("TotalProduits"),
+                            this.resultSet.getFloat("TotalCrédit")
+                    )
+            );
+        }
+        return SQLCleint;
     }
 }

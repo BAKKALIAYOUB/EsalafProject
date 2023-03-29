@@ -24,6 +24,10 @@ public class MarketAdmin {
         this.password = password;
     }
 
+    public MarketAdmin() {
+
+    }
+
     public int getId_admin() {
         return id_admin;
     }
