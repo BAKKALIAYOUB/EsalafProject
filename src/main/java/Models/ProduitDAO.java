@@ -36,9 +36,9 @@ public class ProduitDAO extends BaseDAO<Produit>{
         Produit result = null;
         if(resultSet.next()){
             result = new Produit(
-                    resultSet.getInt("id_produit"),
-                    resultSet.getString("nom"),
-                    resultSet.getFloat("prix")
+                resultSet.getInt("id_produit"),
+                resultSet.getString("nom"),
+                resultSet.getFloat("prix")
             );
         }
         return result;
@@ -149,5 +149,26 @@ public class ProduitDAO extends BaseDAO<Produit>{
         }
         return id_produit;
 
+    }
+
+    public List<Produit> getTopAchat(int id_admin) throws SQLException{
+        List<Produit> listResult = new ArrayList<Produit>();
+        String req = "SELECT produit.nom, COUNT(crédit.id_client) AS nb_achats " +
+                "FROM produit " +
+                "LEFT JOIN crédit ON produit.id_produit = crédit.id_produit " +
+                "LEFT JOIN client ON crédit.id_client = client.id_client " +
+                "LEFT JOIN marketadmin ON client.id_admin = marketadmin.id_admin " +
+                "WHERE marketadmin.id_admin = ? " +
+                "GROUP BY produit.id_produit";
+
+        this.preparedStatement = this.connection.prepareStatement(req);
+        this.preparedStatement.setInt(1 , id_admin);
+        this.resultSet = this.preparedStatement.executeQuery();
+
+        while(this.resultSet.next()){
+            listResult.add(new Produit(this.resultSet.getString("nom")  , this.resultSet.getInt("nb_achats")) );
+        }
+
+        return listResult;
     }
 }

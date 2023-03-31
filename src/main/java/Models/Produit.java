@@ -4,6 +4,13 @@ public class Produit {
     private int id_produit;
     private String nom;
     private float prix;
+    private int nbr_achat;
+
+
+    public Produit(String nom,int nbr_achat){
+        this.nom = nom;
+        this.nbr_achat = nbr_achat;
+    }
 
     public Produit(int id_produit, String nom, float prix) {
         this.id_produit = id_produit;
@@ -38,5 +45,13 @@ public class Produit {
 
     public void setPrix(float prix) {
         this.prix = prix;
+    }
+
+    public int getNbr_achat() {
+        return nbr_achat;
+    }
+
+    public void setNbr_achat(int nbr_achat) {
+        this.nbr_achat = nbr_achat;
     }
 }
