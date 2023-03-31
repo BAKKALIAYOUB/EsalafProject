@@ -53,7 +53,9 @@ public class LoginController {
             //send Admin object that log in to TableauBordController
             TableauBoardController tableauBoardController = loader.getController();
             tableauBoardController.setAdminLogin(admin);
+            tableauBoardController.initialize();
             tableauBoardController.setWelcomeMessage();
+
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root );
