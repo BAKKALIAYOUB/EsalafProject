@@ -13,7 +13,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
+import javafx.util.converter.FloatStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,7 +44,7 @@ public class ProduitsController implements Initializable {
 
 
     @FXML
-    protected void onGoBackClick(ActionEvent event) throws IOException {
+    protected void onGoBackClick(ActionEvent event) throws IOException , SQLException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TableauBoard-view.fxml"));
         Parent root = loader.load();
 
@@ -63,6 +65,8 @@ public class ProduitsController implements Initializable {
         PrixProduitsTAB.setCellValueFactory(new PropertyValueFactory<Produit,Float>("prix"));
 
         ProduitsTAB.setItems(getDataClients());
+        ProduitsTAB.setEditable(true);
+        PrixProduitsTAB.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 
     }
 
@@ -78,7 +82,6 @@ public class ProduitsController implements Initializable {
         return listfx;
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -86,5 +89,16 @@ public class ProduitsController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    @FXML
+    public void changePrixProduit(TableColumn.CellEditEvent edditCell) throws SQLException{
+        Produit produitSelected = ProduitsTAB.getSelectionModel().getSelectedItem();
+        produitSelected.setPrix((Float) edditCell.getNewValue());
+
+        ProduitDAO produtiModel = new ProduitDAO();
+        //update prix dans la base de donnée
+        produtiModel.update(produitSelected);
+        //updateTable pour changer le prix
+        updateTable();
     }
 }

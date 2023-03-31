@@ -30,7 +30,7 @@
               <columns>
                 <TableColumn fx:id="id_ProduitsTAB" prefWidth="75.0" text="No." />
                 <TableColumn fx:id="NomProduitsTAB" prefWidth="325.3333740234375" text="NomProduit" />
-                  <TableColumn fx:id="PrixProduitsTAB" prefWidth="285.3333435058594" text="Prix" />
+                  <TableColumn fx:id="PrixProduitsTAB" onEditCommit="#changePrixProduit" prefWidth="285.3333435058594" text="Prix" />
               </columns>
             </TableView>
             <Button layoutX="615.0" layoutY="528.0" mnemonicParsing="false" onAction="#onGoBackClick" style="-fx-background-color: #008b94;" text="Cancel" textFill="WHITE">
