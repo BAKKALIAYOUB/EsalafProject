@@ -79,21 +79,21 @@ public class CreditClientController {
     public void onAjouterCreditClick() throws SQLException{
         try{
             String nomProduit = this.NomProduit.getText();
-            float prix = Float.parseFloat(this.SommeCredit.getText());
+
             int quantite = Integer.parseInt(this.Quantite.getText());
             String date = this.date.getValue().toString();
             System.out.println(date);
             ProduitDAO produitModel = new ProduitDAO();
             CreditDAO credit = new CreditDAO();
             Credit c = new Credit();
-            c.setPrix(prix);
+
             c.setQuantite(quantite);
             c.setDate(date);
 
             int id_Produits = produitModel.getID(nomProduit);
 
             if(this.NomProduit.getText().isBlank() ||
-                    this.SommeCredit.getText().isBlank() ||
+
                     this.Quantite.getText().isBlank() ||
                     date.isBlank()){
                 MessageErreur.setText("Veuiller Remplir tout les champs");

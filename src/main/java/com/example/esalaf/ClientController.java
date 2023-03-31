@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 import javax.security.auth.callback.Callback;
@@ -77,8 +78,8 @@ public class ClientController{
         c.setTelephone(telephone);
 
         ClientDAO clientModel = new ClientDAO();
+        //insertion du client dans la base de donnée puis updateTable pour l'afficher dans la table
         clientModel.saveAsAdmin(c , this.admin.getId_admin());
-
         updateTable();
     }
 
@@ -91,12 +92,16 @@ public class ClientController{
         ActionTAB.setCellValueFactory(new PropertyValueFactory<Client , Button>("Credit"));
 
         ClientTAB.setItems(getDataClients());
+        ClientTAB.setEditable(true);
+        nomClientTAB.setCellFactory(TextFieldTableCell.forTableColumn());
+        telephoneTAB.setCellFactory(TextFieldTableCell.forTableColumn());
 
     }
 
     public ObservableList<Client> getDataClients() throws SQLException {
         ClientDAO ClientModel = null;
 
+        //observable list contient les objets client récuperer par getAllasAdmin()
         ObservableList<Client> listfx = FXCollections.observableArrayList();
 
         ClientModel = new ClientDAO();
@@ -107,4 +112,40 @@ public class ClientController{
         return listfx;
     }
 
+    @FXML
+    public void onSupprimerClientClick(ActionEvent event) throws SQLException{
+        Client selectedClient = new Client();
+        ClientDAO creditModel = new ClientDAO();
+
+        selectedClient = ClientTAB.getSelectionModel().getSelectedItem();
+
+        //delete le credit dans la base de donnée
+        creditModel.delete(selectedClient.getId_client());
+        //supprimer la ligne selectionner du tableau
+        ClientTAB.getItems().removeAll(ClientTAB.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    public void changerNomClient(TableColumn.CellEditEvent edditCell) throws SQLException{
+        Client clientSelected = ClientTAB.getSelectionModel().getSelectedItem();
+        clientSelected.setNom(edditCell.getNewValue().toString());
+
+        ClientDAO clientModel = new ClientDAO();
+        clientModel.update(clientSelected);
+
+        //updateTable pour changer le nouveau totalCrédit
+        updateTable();
+    }
+
+    @FXML
+    public void changerTelephoneClient(TableColumn.CellEditEvent edditCell) throws SQLException{
+        Client clientSelected = ClientTAB.getSelectionModel().getSelectedItem();
+        clientSelected.setTelephone(edditCell.getNewValue().toString());
+
+        ClientDAO clientModel = new ClientDAO();
+        clientModel.update(clientSelected);
+
+        //updateTable pour changer le nouveau totalCrédit
+        updateTable();
+    }
 }
