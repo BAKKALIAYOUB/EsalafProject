@@ -10,4 +10,5 @@ module com.example.esalaf {
 
     opens Models to javafx.base;
     exports com.example.esalaf;
+    exports Models;
 }
