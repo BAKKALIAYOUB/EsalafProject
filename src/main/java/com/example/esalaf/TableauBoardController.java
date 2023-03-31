@@ -1,9 +1,9 @@
 package com.example.esalaf;
 
-import Models.ClientDAO;
-import Models.CreditDAO;
-import Models.MarketAdmin;
-import Models.ProduitDAO;
+import Models.*;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -19,6 +22,7 @@ import java.io.IOException;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class TableauBoardController {
@@ -31,6 +35,11 @@ public class TableauBoardController {
     private Label TotalCredit;
     @FXML
     private Label WelcomeLabel;
+
+    @FXML
+    private BarChart Statistic1;
+    @FXML
+    private PieChart Statistic2;
 
     public MarketAdmin adminLogin = new MarketAdmin();
 
@@ -54,14 +63,39 @@ public class TableauBoardController {
         int Nombreproduit = produitModel.getNombreProduits();
         int NombreCleint = clientModel.getNombreClient(this.getAdminLogin().getId_admin());
         float TotalCredit1 = creditModel.getSommeCredit(this.getAdminLogin().getId_admin());
-
+        //set Text pour total des produits et client et la somme de tout les crédit
         TotalProduits.setText(Integer.toString(Nombreproduit));
         TotalClient.setText(Integer.toString(NombreCleint));
         TotalCredit.setText(Float.toString(TotalCredit1) + " DH");
 
+        XYChart.Series<String , Float> series = new XYChart.Series<>();
+        System.out.println(this.adminLogin.getId_admin());
+        try {
+            //insertion des donnée recuperer de la base de donnée dans BarChart
+            List<Client> clientSat = clientModel.getAllasAdmin(this.adminLogin.getId_admin());
+            for(Client clientStaItems : clientSat){
+                series.getData().add(new XYChart.Data<>( clientStaItems.getNom() , clientStaItems.getTotalProduits() ));
+            }
+            Statistic1.getData().addAll(series);
 
+            //insertion des donnée recuperer de la base de donnée dans PieChart
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+            List<Produit> list = produitModel.getTopAchat(this.adminLogin.getId_admin());
+            for(Produit listItems : list){
+                pieChartData.add(new PieChart.Data(listItems.getNom() , listItems.getNbr_achat()));
+            }
 
-
+            pieChartData.forEach( data -> {
+                data.nameProperty().bind(
+                        Bindings.concat(
+                                data.getName() , " = " , data.pieValueProperty()
+                        )
+                );
+            });
+            Statistic2.getData().addAll(pieChartData);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML

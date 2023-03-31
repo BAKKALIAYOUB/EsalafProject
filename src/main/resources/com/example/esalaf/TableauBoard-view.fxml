@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1008.0" prefWidth="1283.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.TableauBoardController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="664.0" prefWidth="1283.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.TableauBoardController">
    <children>
       <AnchorPane prefHeight="67.0" prefWidth="720.0" style="-fx-background-color: #00929b; -fx-background-radius: 10;">
          <children>
@@ -34,11 +34,11 @@
          <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin></AnchorPane>
-      <HBox prefHeight="1091.0" prefWidth="1838.0">
+      <HBox prefHeight="541.0" prefWidth="1283.0">
          <children>
-            <AnchorPane prefHeight="876.0" prefWidth="194.0" style="-fx-background-color: #00929b; -fx-background-radius: 10;">
+            <AnchorPane prefHeight="741.0" prefWidth="194.0" style="-fx-background-color: #00929b; -fx-background-radius: 10;">
                <children>
-                  <VBox layoutX="14.0" prefHeight="906.0" prefWidth="180.0">
+                  <VBox layoutX="14.0" prefHeight="566.0" prefWidth="180.0">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="42.0" prefWidth="153.0" spacing="20.0">
                            <children>
@@ -143,16 +143,20 @@
                         </AnchorPane>
                      </children>
                   </HBox>
-                  <AnchorPane prefHeight="824.0" prefWidth="1079.0">
+                  <AnchorPane prefHeight="405.0" prefWidth="1079.0">
                      <children>
-                        <LineChart layoutX="14.0" layoutY="14.0" prefHeight="317.0" prefWidth="402.0">
+                        <BarChart fx:id="Statistic1" prefHeight="400.0" prefWidth="478.0" title="Total produits par Client">
                           <xAxis>
-                            <CategoryAxis side="BOTTOM" />
+                            <CategoryAxis label="Clients" side="BOTTOM" />
                           </xAxis>
                           <yAxis>
-                            <NumberAxis side="LEFT" />
+                            <NumberAxis label="Total Produits" side="LEFT">
+                                 <tickLabelFont>
+                                    <Font size="9.0" />
+                                 </tickLabelFont></NumberAxis>
                           </yAxis>
-                        </LineChart>
+                        </BarChart>
+                        <PieChart fx:id="Statistic2" layoutX="497.0" layoutY="-1.0" prefHeight="405.0" prefWidth="582.0" title="Produits les plus achté" />
                      </children></AnchorPane>
                </children>
             </VBox>
