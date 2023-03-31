@@ -67,7 +67,7 @@
                                     <Image url="@Produits%20icons.png" />
                                  </image>
                               </ImageView>
-                              <Button mnemonicParsing="false" style="-fx-background-color: #00929b;" text="Produits" textFill="WHITE">
+                              <Button mnemonicParsing="false" onAction="#onProduitsClick" style="-fx-background-color: #00929b;" text="Produits" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
