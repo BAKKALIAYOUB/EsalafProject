@@ -100,7 +100,7 @@ public class ProduitDAO extends BaseDAO<Produit>{
     @Override
     public List<Produit> getAll() throws SQLException {
         List<Produit> SQLCleint = new ArrayList<Produit>();
-        String req = "SELECT * FROM MarketAdmin";
+        String req = "SELECT * FROM produit";
 
         this.statement = this.connection.createStatement();
 
@@ -133,6 +133,21 @@ public class ProduitDAO extends BaseDAO<Produit>{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    public int getID(String nom) throws SQLException{
+        String req = "SELECT id_produit FROM produit WHERE nom = ?";
+
+        this.preparedStatement = this.connection.prepareStatement(req);
+
+        this.preparedStatement.setString(1 , nom);
+        this.resultSet = this.preparedStatement.executeQuery();
+        int id_produit = 0;
+        while (this.resultSet.next()){
+            id_produit = this.resultSet.getInt("id_produit");
+        }
+        return id_produit;
 
     }
 }
