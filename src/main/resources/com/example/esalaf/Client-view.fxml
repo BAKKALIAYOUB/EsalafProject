@@ -44,7 +44,7 @@
                      </font>
                   </Label>
                   <TextField fx:id="input_telephone" layoutX="701.0" layoutY="60.0" prefHeight="25.0" prefWidth="169.0" promptText="Telephone" />
-                  <Button layoutX="411.0" layoutY="128.0" mnemonicParsing="false" onAction="#onAjouterClick" prefHeight="29.0" prefWidth="180.0" style="-fx-background-color: #008b94;" text="Ajouter ">
+                  <Button layoutX="275.0" layoutY="130.0" mnemonicParsing="false" onAction="#onAjouterClick" prefHeight="29.0" prefWidth="180.0" style="-fx-background-color: #008b94;" text="Ajouter ">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -52,13 +52,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="686.0" layoutY="130.0" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="29.0" prefWidth="180.0" style="-fx-background-color: #008b94;" text="Cancel">
+                  <Button layoutX="527.0" layoutY="130.0" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="29.0" prefWidth="180.0" style="-fx-background-color: #008b94;" text="Cancel">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
+                  </Button>
+                  <Button layoutX="786.0" layoutY="129.0" mnemonicParsing="false" onAction="#onSupprimerClientClick" prefHeight="29.0" prefWidth="180.0" style="-fx-background-color: #00929b;" text="Supprimer">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
                   </Button>
                </children>
             </AnchorPane>
@@ -69,8 +74,8 @@
             <TableView fx:id="ClientTAB" layoutX="284.0" layoutY="25.0" prefHeight="313.0" prefWidth="715.0">
               <columns>
                 <TableColumn fx:id="id_clientTAB" prefWidth="75.0" text="No." />
-                <TableColumn fx:id="nomClientTAB" prefWidth="137.33334350585938" style="-fx-backgrounf-color: #008b94;" text="Nom &amp; Prénom" />
-                  <TableColumn fx:id="telephoneTAB" prefWidth="106.33334350585938" text="Telephone" />
+                <TableColumn fx:id="nomClientTAB" onEditCommit="#changerNomClient" prefWidth="137.33334350585938" style="-fx-backgrounf-color: #008b94;" text="Nom &amp; Prénom" />
+                  <TableColumn fx:id="telephoneTAB" onEditCommit="#changerTelephoneClient" prefWidth="106.33334350585938" text="Telephone" />
                   <TableColumn fx:id="TotalCreditTAB" prefWidth="132.66668701171875" text="Total Crédit" />
                   <TableColumn fx:id="TotalProduitsTAB" prefWidth="131.33331298828125" text="Total Produits" />
                   <TableColumn fx:id="ActionTAB" prefWidth="131.33331298828125" text="Action" />
