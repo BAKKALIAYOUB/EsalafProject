@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1008.0" prefWidth="1283.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.CreditClientController">
+   <children>
+      <AnchorPane prefHeight="67.0" prefWidth="720.0" style="-fx-background-color: #00929b; -fx-background-radius: 10;">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+         <children>
+            <ImageView fitHeight="52.0" fitWidth="151.0" layoutX="20.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Esalaf%20Logo.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane prefHeight="594.0" prefWidth="1283.0">
+         <children>
+            <Label layoutX="20.0" layoutY="14.0" text="Crédit " textFill="#00929b" underline="true">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <TableView fx:id="ClientCreditTAB" layoutX="342.0" layoutY="297.0" prefHeight="200.0" prefWidth="689.0">
+              <columns>
+                <TableColumn fx:id="NomProduitTAB" prefWidth="103.33328247070312" text="NomProduit" />
+                <TableColumn fx:id="creditTAB" prefWidth="113.3333740234375" text="PrixProduit" />
+                  <TableColumn fx:id="QuantitéCredit" onEditCommit="#changeQuantiteCellEvent" prefWidth="101.33331298828125" text="Quantité" />
+                  <TableColumn fx:id="TotalCreditTAB" prefWidth="107.00006103515625" text="Total Crédit" />
+                  <TableColumn fx:id="DateCreditTAB" prefWidth="156.66668701171875" text="Date Crédit" />
+                  <TableColumn fx:id="id_creditTAB" prefWidth="103.33328247070312" text="No." />
+              </columns>
+            </TableView>
+            <Label layoutX="278.0" layoutY="67.0" text="Nom Produit">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="NomProduit" layoutX="278.0" layoutY="84.0" />
+            <TextField fx:id="Quantite" layoutX="687.0" layoutY="84.0" />
+            <Label layoutX="687.0" layoutY="67.0" text="Quantité">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Label layoutX="954.0" layoutY="67.0" text="Date">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
+            <Button layoutX="495.0" layoutY="227.0" mnemonicParsing="false" onAction="#onAjouterCreditClick" style="-fx-background-color: #00929b;" text="Ajouter Crédit">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label fx:id="MessageErreur" alignment="CENTER" contentDisplay="CENTER" layoutX="356.0" layoutY="24.0" prefHeight="17.0" prefWidth="485.0" textAlignment="CENTER" textFill="#eb0101" />
+            <DatePicker fx:id="date" layoutX="947.0" layoutY="84.0" />
+            <Button layoutX="697.0" layoutY="227.0" mnemonicParsing="false" onAction="#onCancelClick" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #00929b;" text="Cancel">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button layoutX="642.0" layoutY="528.0" mnemonicParsing="false" onAction="#onSupprimerAction" style="-fx-background-color: #00929b;" text="Supprimer">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
