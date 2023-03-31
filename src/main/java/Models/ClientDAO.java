@@ -1,5 +1,7 @@
 package Models;
 
+import javafx.scene.control.Button;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -125,16 +127,17 @@ public class ClientDAO extends BaseDAO<Client> {
         return SQLCleint;
     }
 
-    public int getNombreCliet() {
-        String req = "SELECT COUNT(*) AS NombreCleint FROM client";
+    public int getNombreClient(int idAdmin) {
+        String req = "SELECT COUNT(*) AS NombreClient FROM client WHERE client.id_admin = ?";
 
         Statement statement = null;
         try {
-            statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(req);
+            this.preparedStatement = this.connection.prepareStatement(req);
+            this.preparedStatement.setInt(1,idAdmin);
+            this.resultSet = this.preparedStatement.executeQuery();
             int nombreCleint = 0;
-            if(result.next()){
-                nombreCleint = result.getInt("NombreCleint");
+            if(this.resultSet.next()){
+                nombreCleint = this.resultSet.getInt("NombreClient");
             }
             return nombreCleint;
         } catch (SQLException e) {
@@ -155,11 +158,13 @@ public class ClientDAO extends BaseDAO<Client> {
     }
 
     public List<Client> getAllasAdmin(int idAmdin) throws SQLException{
+        //ajout de "c.id_client = client.id_client"
+        //selection des credit des client d'admin qui id = au argument donnez
         List<Client> SQLCleint = new ArrayList<Client>();
         String req = "SELECT * , " +
                 "(SELECT COUNT(*)  FROM crédit WHERE id_client = client.id_client) as TotalProduits , " +
                 "(SELECT SUM(p.prix * c.quantité) FROM produit p " +
-                "JOIN crédit c ON p.id_produit = c.id_produit AND p.id_produit = client.id_client) as TotalCrédit " +
+                "JOIN crédit c ON p.id_produit = c.id_produit AND c.id_client = client.id_client) as TotalCrédit " +
                 "FROM Client WHERE Client.id_admin = ?";
 
         this.preparedStatement = this.connection.prepareStatement(req);
@@ -174,7 +179,9 @@ public class ClientDAO extends BaseDAO<Client> {
                             this.resultSet.getString("nom"),
                             this.resultSet.getString("telephone"),
                             this.resultSet.getFloat("TotalProduits"),
-                            this.resultSet.getFloat("TotalCrédit")
+                            this.resultSet.getFloat("TotalCrédit"),
+                            new Button("Afficher Crédit"),
+                            idAmdin
                     )
             );
         }

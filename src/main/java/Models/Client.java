@@ -1,5 +1,20 @@
 package Models;
 
+import com.example.esalaf.ClientController;
+import com.example.esalaf.CreditClientController;
+import com.example.esalaf.HelloApplication;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
 public class Client {
     private int id_client;
     private String nom;
@@ -10,7 +25,45 @@ public class Client {
     private Float TotalCrédit;
     private int id_admin;
 
-    public Client( int id_client , String nom, String telephone, Float totalProduits, Float totalCrédit) {
+    private Button Credit;
+
+    public Client(int id_client, String nom, String telephone, Float totalProduits, Float totalCrédit, Button credit , int id_admin) {
+        this.id_client = id_client;
+        this.nom = nom;
+        this.telephone = telephone;
+        TotalProduits = totalProduits;
+        TotalCrédit = totalCrédit;
+        Credit = credit;
+        credit.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("CréditClient-view.fxml"));
+                Parent root = null;
+                try {
+                    root = loader.load();
+
+                    //send idClient to CreditClientController
+                    CreditClientController creditClientController = loader.getController();
+                    creditClientController.setIdClient(id_client);
+                    creditClientController.setId_admin(id_admin);
+                    System.out.println(id_admin);
+                    System.out.println(id_client);
+
+                    creditClientController.updateTable();
+
+                    Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    Scene scene = new Scene(root );
+                    stage.setScene(scene);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+
+    public Client(int id_client , String nom, String telephone, Float totalProduits, Float totalCrédit) {
         this.nom = nom;
         this.id_client = id_client;
         this.telephone = telephone;
@@ -87,6 +140,14 @@ public class Client {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public Button getCredit() {
+        return Credit;
+    }
+
+    public void setCredit(Button credit) {
+        Credit = credit;
     }
 
     @Override
