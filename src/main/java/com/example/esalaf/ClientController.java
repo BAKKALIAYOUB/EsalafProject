@@ -5,11 +5,18 @@ import Models.ClientDAO;
 import Models.MarketAdmin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
+
+import javax.security.auth.callback.Callback;
+import java.io.IOException;
 import java.sql.SQLException;
 public class ClientController{
     @FXML
@@ -28,6 +35,9 @@ public class ClientController{
     private TableColumn<Client , Float> TotalCreditTAB;
     @FXML
     private TableColumn<Client , Float> TotalProduitsTAB;
+    @FXML
+    private TableColumn<Client , Button> ActionTAB;
+
 
     MarketAdmin admin = new MarketAdmin();
 
@@ -37,6 +47,23 @@ public class ClientController{
 
     public void setAdmin(MarketAdmin admin) {
         this.admin = admin;
+    }
+
+
+    @FXML
+    protected void onCancelAction(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("TableauBoard-view.fxml"));
+        Parent root = loader.load();
+
+        //send Admin object that log in to TableauBordController
+        TableauBoardController tableauBoardController = loader.getController();
+        tableauBoardController.setAdminLogin(this.getAdmin());
+        tableauBoardController.initialize();
+        tableauBoardController.setWelcomeMessage();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root );
+        stage.setScene(scene);
     }
 
     @FXML
@@ -61,9 +88,10 @@ public class ClientController{
         telephoneTAB.setCellValueFactory(new PropertyValueFactory<Client,String>("telephone"));
         TotalProduitsTAB.setCellValueFactory(new PropertyValueFactory<Client , Float>("TotalProduits"));
         TotalCreditTAB.setCellValueFactory(new PropertyValueFactory<Client , Float>("TotalCrédit"));
-
+        ActionTAB.setCellValueFactory(new PropertyValueFactory<Client , Button>("Credit"));
 
         ClientTAB.setItems(getDataClients());
+
     }
 
     public ObservableList<Client> getDataClients() throws SQLException {
