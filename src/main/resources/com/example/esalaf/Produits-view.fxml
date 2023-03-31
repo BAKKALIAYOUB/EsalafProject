@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1008.0" prefWidth="1283.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.esalaf.ProduitsController">
+   <children>
+      <AnchorPane prefHeight="67.0" prefWidth="720.0" style="-fx-background-color: #008b94; -fx-background-radius: 10;">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+         <children>
+            <ImageView fitHeight="61.0" fitWidth="110.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Esalaf%20Logo.png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane prefHeight="612.0" prefWidth="1283.0">
+         <children>
+            <Label layoutX="28.0" layoutY="21.0" text="Produits" textFill="#008b94" underline="true">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font></Label>
+            <TableView fx:id="ProduitsTAB" layoutX="281.0" layoutY="108.0" prefHeight="395.0" prefWidth="687.0">
+              <columns>
+                <TableColumn fx:id="id_ProduitsTAB" prefWidth="75.0" text="No." />
+                <TableColumn fx:id="NomProduitsTAB" prefWidth="325.3333740234375" text="NomProduit" />
+                  <TableColumn fx:id="PrixProduitsTAB" prefWidth="285.3333435058594" text="Prix" />
+              </columns>
+            </TableView>
+            <Button layoutX="615.0" layoutY="528.0" mnemonicParsing="false" onAction="#onGoBackClick" style="-fx-background-color: #008b94;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
