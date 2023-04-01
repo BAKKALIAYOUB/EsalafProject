@@ -106,6 +106,9 @@ public class TableauBoardController {
         Scene scene = new Scene(root , 600 , 400);
         stage.setScene(scene);
 
+        stage.setMaximized(false);
+        stage.setWidth(690);
+        stage.setHeight(500);
         stage.show();
     }
 
@@ -135,7 +138,7 @@ public class TableauBoardController {
         clientController.updateTable();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root , 600 , 400);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
 
 
