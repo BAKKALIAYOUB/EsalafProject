@@ -125,7 +125,7 @@ public class CreditClientController {
         clientController.updateTable();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root );
+        Scene scene = new Scene(root);
         stage.setScene(scene);
     }
 
@@ -177,6 +177,8 @@ public class CreditClientController {
         creditModel.update(creditSelected);
         //updateTable pour changer le nouveau totalCrédit
         updateTable();
+
+        System.out.println(creditSelected.toString());
     }
 
 

@@ -30,7 +30,7 @@
             <TableView fx:id="ClientCreditTAB" layoutX="315.0" layoutY="297.0" prefHeight="200.0" prefWidth="689.0">
               <columns>
                 <TableColumn fx:id="NomProduitTAB" prefWidth="103.33328247070312" text="NomProduit" />
-                <TableColumn fx:id="creditTAB" prefWidth="113.3333740234375" text="PrixProduit" />
+                <TableColumn fx:id="creditTAB" prefWidth="113.3333740234375" text="PrixProduit (x1)" />
                   <TableColumn fx:id="QuantitéCredit" onEditCommit="#changeQuantiteCellEvent" prefWidth="101.33331298828125" text="Quantité" />
                   <TableColumn fx:id="TotalCreditTAB" prefWidth="107.00006103515625" text="Total Crédit" />
                   <TableColumn fx:id="DateCreditTAB" prefWidth="156.66668701171875" text="Date Crédit" />
