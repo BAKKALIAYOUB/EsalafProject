@@ -11,6 +11,12 @@ public class Credit {
     private float prix;
     private float total;
 
+    public Credit(int idProduit, int quantité, String date) {
+        this.id_produit = idProduit;
+        this.quantite = quantité;
+        this.date = date;
+    }
+
     public int getId_crédit() {
         return id_crédit;
     }

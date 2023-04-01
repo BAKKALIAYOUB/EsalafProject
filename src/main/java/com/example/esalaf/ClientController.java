@@ -38,8 +38,10 @@ public class ClientController{
     private TableColumn<Client , Float> TotalProduitsTAB;
     @FXML
     private TableColumn<Client , Button> ActionTAB;
+    @FXML
+    private Label messageErreur;
 
-
+    //objet admin connecté
     MarketAdmin admin = new MarketAdmin();
 
     public MarketAdmin getAdmin() {
@@ -50,9 +52,9 @@ public class ClientController{
         this.admin = admin;
     }
 
-
     @FXML
     protected void onCancelAction(ActionEvent event) throws IOException {
+        //changer scene vers tableau du bord
         FXMLLoader loader = new FXMLLoader(getClass().getResource("TableauBoard-view.fxml"));
         Parent root = loader.load();
 
@@ -69,7 +71,7 @@ public class ClientController{
 
     @FXML
     protected void onAjouterClick() throws SQLException{
-
+        //recuperer les données saisi par utilisateur
         String nom = this.input_nom.getText();
         String telephone = this.input_telephone.getText();
         Client c = new Client();
@@ -78,9 +80,14 @@ public class ClientController{
         c.setTelephone(telephone);
 
         ClientDAO clientModel = new ClientDAO();
-        //insertion du client dans la base de donnée puis updateTable pour l'afficher dans la table
-        clientModel.saveAsAdmin(c , this.admin.getId_admin());
-        updateTable();
+        //insertion du client dans la base de donnée puis updateTable pour l'afficher dans la table ssi les champs ne sont pas vide
+        if (!telephone.isBlank() && !nom.isBlank()){
+            clientModel.saveAsAdmin(c , this.admin.getId_admin());
+            updateTable();
+
+        }else{
+            messageErreur.setText("Veuillez remplir tout les Champs");
+        }
     }
 
     public  void updateTable() throws SQLException{
@@ -95,7 +102,6 @@ public class ClientController{
         ClientTAB.setEditable(true);
         nomClientTAB.setCellFactory(TextFieldTableCell.forTableColumn());
         telephoneTAB.setCellFactory(TextFieldTableCell.forTableColumn());
-
     }
 
     public ObservableList<Client> getDataClients() throws SQLException {
@@ -139,10 +145,12 @@ public class ClientController{
 
     @FXML
     public void changerTelephoneClient(TableColumn.CellEditEvent edditCell) throws SQLException{
+        //recuperer l'objet client selectionner
         Client clientSelected = ClientTAB.getSelectionModel().getSelectedItem();
         clientSelected.setTelephone(edditCell.getNewValue().toString());
 
         ClientDAO clientModel = new ClientDAO();
+        //mise a jour du client
         clientModel.update(clientSelected);
 
         //updateTable pour changer le nouveau totalCrédit

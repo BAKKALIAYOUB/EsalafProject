@@ -57,6 +57,7 @@ public class CreditClientController {
     @FXML
     private DatePicker date;
 
+
     public MarketAdmin getAdmin() {
         return admin;
     }
@@ -93,22 +94,25 @@ public class CreditClientController {
             int id_Produits = produitModel.getID(nomProduit);
 
             if(this.NomProduit.getText().isBlank() ||
-
-                    this.Quantite.getText().isBlank() ||
-                    date.isBlank()){
+                this.Quantite.getText().isBlank() ||
+                date.isBlank()) {
                 MessageErreur.setText("Veuiller Remplir tout les champs");
             }
             else if(id_Produits == 0){
-                MessageErreur.setText("Il existe aucun produit sous le nom que vous avez entrer");
+                MessageErreur.setText("Il existe aucun produit sous ce nom");
             }
+
             else{
                 credit.saveAsClient(c , id_Produits , this.idClient);
             }
+
             updateTable();
         }
         catch (NumberFormatException e){
+            //NumberFormatException : l'utilisateur a saisi un String cad != nombre
             MessageErreur.setText("Veuiller entrer des nombre ");
         }
+
 
     }
 
@@ -169,6 +173,7 @@ public class CreditClientController {
     }
 
     public void changeQuantiteCellEvent (TableColumn.CellEditEvent edditCell) throws SQLException{
+        //recuperer l'objet credit selectionné
         Credit creditSelected = ClientCreditTAB.getSelectionModel().getSelectedItem();
         creditSelected.setQuantite((Integer) edditCell.getNewValue());
 

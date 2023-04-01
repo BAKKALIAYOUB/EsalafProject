@@ -40,6 +40,7 @@ public class LoginController {
         if(password.isBlank() || email.isBlank()){
             LoginMessageLabel.setText("Veuillez remplir tout les champs !!");
         }
+        //s'il n'existe aucun admin avec l'email saisi
         else if(admin == null){
             LoginMessageLabel.setText("Aucun compte correspond a l'email");
         }
@@ -60,8 +61,8 @@ public class LoginController {
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root );
             stage.setScene(scene);
-            stage.setWidth(1080);
-            stage.setHeight(400);
+            stage.setMaximized(true);
+
 
 
             stage.show();

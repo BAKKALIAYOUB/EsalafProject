@@ -54,6 +54,7 @@ public class CreditDAO extends BaseDAO<Credit>{
         return null;
     }
 
+    //recuperer la somme total des credits
     public float getSommeCredit(int id) {
         String req = "SELECT SUM(p.prix * c.quantité) AS TotalCredit FROM produit p " +
                         "JOIN crédit c ON p.id_produit = c.id_produit " +
@@ -75,6 +76,7 @@ public class CreditDAO extends BaseDAO<Credit>{
 
     }
 
+    //recuperer les credit en fonction des clients
     public List<Credit> getCreditAsClient(int id) throws SQLException{
         List<Credit> sqlCredit = new ArrayList<Credit>();
         String req = "SELECT crédit.id_crédit, quantité, date , produit.nom , produit.prix " +
@@ -104,6 +106,27 @@ public class CreditDAO extends BaseDAO<Credit>{
         return sqlCredit;
     }
 
+
+    public List<Credit> CheckProduit(String nomProduit , int id_client) throws SQLException{
+        List<Credit> list = new ArrayList<Credit>();
+        ProduitDAO produitModel = new ProduitDAO();
+        int id_produit = produitModel.getID(nomProduit);
+        String req = "SELECT * FROM crédit WERE id_client = ? AND id_produit = ?";
+
+        this.preparedStatement = this.connection.prepareStatement(req);
+        this.preparedStatement.setInt(1 , id_client);
+        this.preparedStatement.setInt(2 , id_produit);
+
+        this.resultSet = this.preparedStatement.executeQuery();
+
+        while(this.resultSet.next()){
+            list.add(new Credit(this.resultSet.getInt("id_produit")  , this.resultSet.getInt("quantité") , this.resultSet.getString("date") ));
+        }
+
+        return list;
+    }
+
+    //ajouter les credit en fonction des clients
     public void saveAsClient(Credit c , int id_produit , int id_client) throws SQLException{
         String req = "INSERT INTO crédit (`id_produit`, `id_client`, `quantité`, `date`) VALUES" +
                 " (? , ? , ? , ?)";

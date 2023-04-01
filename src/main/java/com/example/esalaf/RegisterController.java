@@ -44,6 +44,7 @@ public class RegisterController{
 
     @FXML
     protected void onRegisterClick(ActionEvent event) throws SQLException , IOException{
+        //recuperer les données saisi par l'utilisateur
         String nom = input_Nom.getText();
         String email = input_Email.getText();
         String password = input_Password.getText();
@@ -75,6 +76,7 @@ public class RegisterController{
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root , 600 , 400);
                 stage.setScene(scene);
+                stage.setMaximized(true);
                 stage.show();
             } catch (SQLException e){
                 //exeption de l'unicité du champ email

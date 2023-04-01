@@ -71,6 +71,7 @@ public class ProduitsController implements Initializable {
         PrixProduitsTAB.setCellValueFactory(new PropertyValueFactory<Produit,Float>("prix"));
 
         ProduitsTAB.setItems(getDataClients());
+        //set table Editable to true pour permete au client de modifier les champs en double cliquant
         ProduitsTAB.setEditable(true);
         PrixProduitsTAB.setCellFactory(TextFieldTableCell.forTableColumn(new FloatStringConverter()));
 
@@ -82,6 +83,7 @@ public class ProduitsController implements Initializable {
         ObservableList<Produit> listfx = FXCollections.observableArrayList();
 
         ProduitModel = new ProduitDAO();
+        //recuperer les produits dans la base de donnée
         for (Produit listItems : ProduitModel.getAll()){
             listfx.add(listItems);
         }
@@ -114,6 +116,7 @@ public class ProduitsController implements Initializable {
         float prix_Produit = Float.parseFloat(input_Prix.getText());
         ProduitDAO produitModel = new ProduitDAO();
 
+        //on ajoute le produit dans BDD ssi le chmaps produits n'est pas vide
         if(!nom_Produit.isBlank()){
             Produit new_Produit = new Produit(nom_Produit , prix_Produit);
             produitModel.save(new_Produit);
@@ -123,6 +126,7 @@ public class ProduitsController implements Initializable {
 
     @FXML
     public void onSupprimerProduitClick() throws SQLException{
+        //recuperer l'objet produit selectionner
         Produit produitSelected = ProduitsTAB.getSelectionModel().getSelectedItem();
         ProduitDAO produitModel = new ProduitDAO();
 

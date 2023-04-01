@@ -127,6 +127,7 @@ public class ClientDAO extends BaseDAO<Client> {
         return SQLCleint;
     }
 
+    //recuperer le nombre total des client en fonction d'admin
     public int getNombreClient(int idAdmin) {
         String req = "SELECT COUNT(*) AS NombreClient FROM client WHERE client.id_admin = ?";
 
@@ -145,6 +146,7 @@ public class ClientDAO extends BaseDAO<Client> {
         }
     }
 
+    //ajouter des client en fonction d'admin
     public void saveAsAdmin(Client object , int idAmdin) throws SQLException{
         String req = "INSERT INTO client (nom , telephone , id_admin) values (? , ? , ?)";
 
@@ -157,6 +159,7 @@ public class ClientDAO extends BaseDAO<Client> {
         this.preparedStatement.execute();
     }
 
+    //recuperer les client en fonction d'admin
     public List<Client> getAllasAdmin(int idAmdin) throws SQLException{
         //ajout de "c.id_client = client.id_client"
         //selection des credit des client d'admin qui id = au argument donnez
