@@ -49,17 +49,14 @@ public class ProduitDAO extends BaseDAO<Produit>{
     public void update(Produit object) throws SQLException {
         String req = "UPDATE Produit SET nom = ? , prix = ?  WHERE id_produit = ?";
         ProduitDAO c = new ProduitDAO();
-        if (c.getOne(object.getId_produit()) == null) {
-            //create a static method to check the existence of a client to use in other CRUD methods
-            throw new SQLException("Produit With id : " + object.getId_produit() + " is not found");
-        } else {
+
             this.preparedStatement = this.connection.prepareStatement(req);
             this.preparedStatement.setString(1, object.getNom());
             this.preparedStatement.setFloat(2, object.getPrix());
             this.preparedStatement.setInt(3, object.getId_produit());
 
             this.preparedStatement.execute();
-        }
+
     }
 
     @Override
@@ -67,9 +64,6 @@ public class ProduitDAO extends BaseDAO<Produit>{
             String req = "DELETE FROM Produit WHERE id_produit = ?";
             MarketAdminDAO c = new MarketAdminDAO();
 
-            if (c.getOne(id) == null){
-                throw new SQLException("Produit With id : "+ id+" is not found");
-            }
 
             this.preparedStatement = this.connection.prepareStatement(req);
             this.preparedStatement.setInt(1,id);
