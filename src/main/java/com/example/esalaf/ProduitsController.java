@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
@@ -31,6 +32,11 @@ public class ProduitsController implements Initializable {
     private TableColumn<Produit , Float> PrixProduitsTAB;
     @FXML
     private TableView<Produit> ProduitsTAB;
+
+    @FXML
+    private TextField input_NomProduit;
+    @FXML
+    private TextField input_Prix;
 
     public MarketAdmin getAdmin() {
         return admin;
@@ -99,6 +105,28 @@ public class ProduitsController implements Initializable {
         //update prix dans la base de donnée
         produtiModel.update(produitSelected);
         //updateTable pour changer le prix
+        updateTable();
+    }
+
+    @FXML
+    public void onAjouterProduitClick() throws SQLException{
+        String nom_Produit = input_NomProduit.getText();
+        float prix_Produit = Float.parseFloat(input_Prix.getText());
+        ProduitDAO produitModel = new ProduitDAO();
+
+        if(!nom_Produit.isBlank()){
+            Produit new_Produit = new Produit(nom_Produit , prix_Produit);
+            produitModel.save(new_Produit);
+            updateTable();
+        }
+    }
+
+    @FXML
+    public void onSupprimerProduitClick() throws SQLException{
+        Produit produitSelected = ProduitsTAB.getSelectionModel().getSelectedItem();
+        ProduitDAO produitModel = new ProduitDAO();
+
+        produitModel.delete(produitSelected.getId_produit());
         updateTable();
     }
 }
